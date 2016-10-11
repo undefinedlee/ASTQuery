@@ -1,5 +1,6 @@
 var babel = require("babel-core");
-var parseMatch = require("./parse-match");
+var parse = require("./parse");
+var stringify = require("./stringify");
 var compare = require("./compare");
 
 function transMatchs(matchs){
@@ -9,7 +10,7 @@ function transMatchs(matchs){
 
 	if(matchs instanceof Array){
 		return matchs.map(function(match){
-			return parseMatch(match);
+			return parse(match);
 		});
 	}
 
@@ -74,11 +75,22 @@ Seed.prototype = {
 		});
 		return this;
 	},
-	getCode: function(){
-		return babel.transformFromAst(this.options.ast).code;
+	each: function(fn){
+		this.seed.forEach(fn.bind(this));
+		return this;
+	},
+	map: function(fn){
+		this.seed.map(fn.bind(this));
+		return this;
+	},
+	eq: function(index){
+		return this.seed[index];
 	},
 	getAST: function(){
 		return this.options.ast;
+	},
+	code: function(){
+		return babel.transformFromAst(this.options.ast).code;
 	}
 };
 
@@ -143,16 +155,39 @@ function ASTQuery(code){
 		}
 	};
 };
+
+// 将代码字符串解析成astNode
+ASTQuery.parse = parse;
+// 将一个AST节点序列化成字符串
+ASTQuery.stringify = stringify;
+// 比较两个astNode是否一样
+ASTQuery.compare = compare;
+
+ASTQuery.Seed = Seed;
+
 // 对象操作
-ASTQuery.Object = function(object){
+ASTQuery.Object = function(path){
 	return {
 		find: function(prototypeName){}
 	};
 };
 // 标签操作
-ASTQuery.Element = function(element){
+ASTQuery.Element = function(path){
 	return {
 		find: function(attributeName){}
+	};
+};
+// 标签操作
+ASTQuery.Function = function(path){
+	return {
+	};
+};
+// 标签操作
+ASTQuery.Call = function(path){
+	return {
+		arguments: {
+			push: function(){}
+		}
 	};
 };
 
