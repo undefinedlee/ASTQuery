@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/undefinedlee/ASTQuery#readme",
   "dependencies": {
-    "babel-core": "^6.17.0"
+    "babel-core": "^6.17.0",
+    "babel-plugin-syntax-jsx": "^6.13.0"
   }
 }
