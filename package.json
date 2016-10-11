@@ -1,0 +1,29 @@
+{
+  "name": "astquery",
+  "version": "0.1.0",
+  "description": "ast query",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/undefinedlee/ASTQuery.git"
+  },
+  "keywords": [
+    "AST",
+    "babel",
+    "javascript",
+    "html",
+    "css"
+  ],
+  "author": "emianbao@vip.qq.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/undefinedlee/ASTQuery/issues"
+  },
+  "homepage": "https://github.com/undefinedlee/ASTQuery#readme",
+  "dependencies": {
+    "babel-core": "^6.17.0"
+  }
+}
