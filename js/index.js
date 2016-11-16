@@ -41,32 +41,33 @@ Seed.prototype = {
 		});
 		return this;
 	},
-	replace: function(result){
-		result = transMatchs(result);
+	replace: function(code){
+		code = transMatchs(code);
 		this.seed.forEach(function(path){
-			path.replaceWithMultiple(cloneNode(result));
+			path.replaceWithMultiple(cloneNode(code));
 		});
 		return this;
 	},
-	insertBefore: function(result){
-		result = transMatchs(result);
+	insertBefore: function(code){
+		code = transMatchs(code);
 		this.seed.forEach(function(path){
-			result.forEach(function(result){
-				path.insertBefore(cloneNode(result));
+			code.forEach(function(code){
+				path.insertBefore(cloneNode(code));
 			});
 		});
 		return this;
 	},
-	insertAfter: function(result){
-		result = transMatchs(result);
+	insertAfter: function(code){
+		code = transMatchs(code);
 		this.seed.forEach(function(path){
-			result.reverse().forEach(function(result){
-				path.insertAfter(cloneNode(result));
+			code.reverse().forEach(function(code){
+				path.insertAfter(cloneNode(code));
 			});
 		});
 		return this;
 	},
-	package: function(result){
+	package: function(code){
+		code = parse(code);
 		return this;
 	},
 	remove: function(){
@@ -94,8 +95,12 @@ Seed.prototype = {
 	}
 };
 
-function ASTQuery(code){
-	var ast = babel.transform(code).ast;
+function ASTQuery(ast){
+	var code;
+	if(typeof ast === "string"){
+		code = ast;
+		ast = babel.transform(ast).ast;
+	}
 
 	return {
 		has: function(matchs){
