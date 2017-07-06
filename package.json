@@ -1,6 +1,6 @@
 {
   "name": "js-ast-query",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "javascript ast query",
   "main": "index.js",
   "scripts": {
