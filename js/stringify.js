@@ -6,7 +6,7 @@ function isSimple(node){
 	return /(Expression|Literal)$/.test(type) || /^JSX/.test(type) || ["Identifier"].indexOf(type) !== -1;
 }
 
-module.exports = function(astNode){
+module.exports = function(astNode, options){
 	var t = babel.types;
 	var isExpression = false;
 	var isModule = false;
@@ -45,7 +45,10 @@ module.exports = function(astNode){
 		[]
 	), [], []);
 
-	var code = babel.transformFromAst(astNode).code;
+	var code = babel.transformFromAst(astNode, options && options.indent || "	", {
+		ast: false,
+		babelrc: false
+	}).code;
 
 	// 移除外部的函数包装代码
 	if(!isModule){
